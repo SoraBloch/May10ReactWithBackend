@@ -3,13 +3,14 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import AddPersonForm from './AddPersonForm';
 import axios from 'axios';
+import PersonRow from './PersonRow';
+import TitleRow from './TitleRow';
 
 class PeopleTable extends React.Component {
 
     state = {
         people: [],
         person: {
-            id: '',
             firstName: '',
             lastName: '',
             age: ''
@@ -46,9 +47,26 @@ class PeopleTable extends React.Component {
         this.setState({ person: copy });
     }
 
+    onDeleteClick = (id) => {
+        axios.post('/api/people/delete',  id ).then(() => {
+            this.getAllPeople();
+        })
+    }
+
+    onEditClick = (p) => {
+        axios.post('/api/people/edit',  p ).then(() => {
+            this.getAllPeople();
+        })
+    }
+
     generateTable = () => {
         const { people } = this.state;
-        return people.map(p => <PersonRow key={p.id} person={p} />)
+        return people.map(p => <PersonRow
+            key={p.id}
+            person={p}
+            onDeleteClick={() => this.onDeleteClick(p.id)}
+            onEditClick={() => this.onEditClick(p)}
+        />)
     }
 
 
@@ -67,11 +85,7 @@ class PeopleTable extends React.Component {
             <div>
                 <table className='table table-hover table-striped table-bordered mt-3'>
                     <thead>
-                        <tr>
-                            <td>First Name</td>
-                            <td>Last Name</td>
-                            <td>Age</td>
-                        </tr>
+                        <TitleRow />
                     </thead>
                     <tbody>
                         {this.generateTable()}
