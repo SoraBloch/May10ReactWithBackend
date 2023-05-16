@@ -49,7 +49,7 @@ class PeopleTable extends React.Component {
 
     onDeleteClick = (id) => {
         console.log("delete");
-        axios.post('/api/people/delete', id).then(response => {
+        axios.post('/api/people/delete', { id }).then(response => {
             this.getAllPeople();
             console.log(response);
         })
@@ -105,7 +105,8 @@ class PeopleTable extends React.Component {
     }
 
     onDeleteAllClick = () => {
-        axios.post('/api/people/deleteall', this.state.selectedPeople).then(() => {
+        console.log(ids);
+        axios.post('/api/people/deleteall', { ids: this.state.people.map(p => p.id) }).then(() => {
             this.getAllPeople();
         })
     }

@@ -33,11 +33,11 @@ namespace May10ReactWithBackend.Web.Controllers
         }
         [HttpPost]
         [Route("delete")]
-        public int Delete(int id)
+        public int Delete(DeleteViewModel vm)
         {
             var repo = new PersonRepository(_connectionString);
-            repo.Delete(id);
-            return id;
+            repo.Delete(vm.Id);
+            return vm.Id;
         }
         [HttpPost]
         [Route("update")]
