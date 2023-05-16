@@ -34,7 +34,14 @@ namespace May10ReactWithBackend.Data
         public void Delete(int id)
         {
             using var context = new PeopleDbContext(_connectionString);
-            context.Database.ExecuteSqlInterpolated($"DELETE FROM People WHERE Id = {id}");
+            context.Database.ExecuteSqlInterpolated($"DELETE FROM People WHERE Id = ${id}");
+        }
+        public void DeleteAll(List<int> ids)
+        {
+            foreach (int id in ids)
+            {
+                Delete(id);
+            }
         }
     }
 }

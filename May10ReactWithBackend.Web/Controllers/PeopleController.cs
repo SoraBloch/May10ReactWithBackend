@@ -1,6 +1,8 @@
 ﻿using May10ReactWithBackend.Data;
+using May10ReactWithBackend.Web.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace May10ReactWithBackend.Web.Controllers
 {
@@ -31,17 +33,26 @@ namespace May10ReactWithBackend.Web.Controllers
         }
         [HttpPost]
         [Route("delete")]
-        public void Delete(int id)
+        public int Delete(int id)
         {
             var repo = new PersonRepository(_connectionString);
             repo.Delete(id);
+            return id;
         }
         [HttpPost]
-        [Route("edit")]
-        public void Edit(Person person)
+        [Route("update")]
+        public void Update(Person person)
         {
             var repo = new PersonRepository(_connectionString);
             repo.Update(person);
         }
+        [HttpPost]
+        [Route("deleteall")]
+        public void DeleteAll(DeleteAllViewModel vm)
+        {
+            var repo = new PersonRepository(_connectionString);
+            repo.DeleteAll(vm.Ids);
+        }
     }
+ 
 }

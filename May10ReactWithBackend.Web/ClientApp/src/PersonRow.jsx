@@ -1,12 +1,12 @@
 ﻿import React from 'react';
 
-export default function PersonRow({ person, onEditClick, onDeleteClick }) {
+export default function PersonRow({ person, onEditClick, onDeleteClick, isChecked, onCheckChange }) {
     const { firstName, lastName, age } = person;
     return (
         <tr>
             <td>
                 <div className="d-flex justify-content-center align-items-center">
-                    <input type="checkbox" className="form-check-input mt-2" />
+                    <input type="checkbox" checked={isChecked} onChange={ onCheckChange } className="form-check-input mt-2" />
                 </div>
             </td>
             <td>{firstName}</td>
