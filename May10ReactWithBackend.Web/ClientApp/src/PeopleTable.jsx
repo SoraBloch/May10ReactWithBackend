@@ -107,8 +107,7 @@ class PeopleTable extends React.Component {
     }
 
     onDeleteAllClick = () => {
-        console.log(ids);
-        axios.post('/api/people/deleteall', { ids: this.state.people.map(p => p.id) }).then(() => {
+        axios.post('/api/people/deleteall', { ids: this.state.selectedPeople.map(p => p.id) }).then(() => {
             this.getAllPeople();
         })
     }
