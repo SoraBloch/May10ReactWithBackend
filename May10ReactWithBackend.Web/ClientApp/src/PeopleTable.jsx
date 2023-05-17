@@ -15,7 +15,8 @@ class PeopleTable extends React.Component {
             age: ''
         },
         selectedPeople: [],
-        editForm: false
+        editForm: false,
+        editId: 0
     }
 
     onAddClick = () => {
@@ -58,6 +59,7 @@ class PeopleTable extends React.Component {
     onEditClick = (p) => {
         const { editForm } = this.state;
         this.setState({ editForm: true });
+        this.setState({ editId: p.id });
         console.log(editForm);
         this.setState({
             person: {
@@ -69,7 +71,7 @@ class PeopleTable extends React.Component {
     }
 
     onUpdateClick = () => {
-        axios.post('/api/people/update', this.state.person).then(() => {
+        axios.post('/api/people/update', { ...this.state.person, id: this.state.editId }).then(() => {
             this.getAllPeople();
             this.setState({
                 person: {
